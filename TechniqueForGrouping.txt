@@ -1,0 +1,38 @@
+COMPATIBLE DATA  (WEIGHTS KNOWN NONE)                |  UNCOMPATIBLE DATA  (WEIGHTS KNOWN NONE)	
+9 	-- 1 0 0 1				     |  9 	-- 1 0 0 1
+11	-- 1 0 1 1				     |  7 	-- 0 1 1 1
+XOR     -- 0 0 1 0				     |  XOR     -- 1 1 1 0
+OR      -- 1 0 1 1				     |  OR      -- 1 1 1 1
+XNOR    -- 1 1 0 1				     |  XNOR    -- 0 0 0 1
+AND     -- 1 0 0 1				     |  AND     -- 0 0 0 1
+          					     |
+TO CALCULATE WEIGHTS				     |  TO CALCULATE WEIGHTS
+TARGET ANSWER -- 0 0 1 0			     |  TARGET ANSWER NOT VALID
+XOR           -- 0 0 1 0			     |  XOR     -- 1 1 1 0
+IS A POWER OF TWO				     |  NOT A POWER OF TWO
+  						     |
+CONTINUE WITH					     |
+NEW DATA OR  -- 1 0 1 1 			     |
+						     |
+COMPATIBLE DATA  (WEIGHTS KNOWN)                     |  UNCOMPATIBLE DATA  (WEIGHTS KNOWN)
+NEW DATA(1)  -- 1 0 1 1 (FOR 9,11)                   |  
+WEIGHT(1)    -- 0 0 1 0                              |  
+NEW DATA(2)  -- 0 0 1 1 (FOR 1,3)                    |  
+WEIGHT(2)    -- 0 0 1 0				     |  
+XOR          -- 1 0 0 0				     |  
+OR           -- 1 0 1 1				     |  
+						     |  
+TO CALCULATE NEW WEIGHTS                             |  
+XOR          -- 1 0 0 0				     |  
+SHOULD BE A POWER OF TWO 			     |  
+						     |  
+CALCULATING TOTAL WEIGHT 			     |  
+(OLDWEIGHT)OR(PRESENTWEIGHT) -- 1 0 1 0		     |  
+ 						     |  
+CONTINUE WITH					     |  
+NEW DATA OR  -- 1 0 1 1				     |  
+						     |
+
+
+
+

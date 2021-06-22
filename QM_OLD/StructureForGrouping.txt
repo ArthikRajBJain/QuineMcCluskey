@@ -1,0 +1,21 @@
+//global variables
+
+//truth table data in string
+char str[10000];
+//truth table data
+int data[10000]={0};
+//data sorted  based on number of ones one[number of ones][data with that number of ones]
+int one[100][100];
+int oneindex[100]={0};
+//structure for storing flag data, grouping data and OR data
+//flag for all the groups flag[page number][group number][element number]
+int flag[100][100][100];
+//elements of all the groups elements[page number][group number][element number][elements of that group]
+int elements[100][100][100][100];
+//weights in common between elements weights[page number][group number][element number]
+int weights[100][100][100];
+int OR[100][100][100];
+//counting number of groups in page groupNumber[page number]
+int groupNumber[100];
+//counting number of elements in each group elementNumber[page number][group number]
+int elementNumber[100][100];
