@@ -66,3 +66,65 @@ void print_number_of_ones(uint16_t *ones, uint16_t *one_size)
 		cout<<"\n----------------------------------------------------\n";
 	}
 }
+
+void compute_tabulation(uint16_t *ones[], uint16_t *one_size[], uint16_t *not_done, uint16_t *not_done_size, bool *done)
+{
+	int i=0,j=0,k=0,l=0;
+	for(i=1;i<16;i++)
+	{
+		ones[i] = (uint16_t *)malloc(65536*16*sizeof(uint16_t));
+		one_size[i] = (uint16_t *)malloc(16*sizeof(uint16_t));
+		for(l=0;l<16;l++)
+		{
+			*(one_size[i] + l) = 0;
+		}
+		for(j=0;j<(16-i);j++)
+		{
+			*(ones[i-1] + (16-i)*j + *(one_size[i-1] + k));
+		}
+		free(ones[i-1]);
+		free(one_size[i-1]);
+	}
+	free(ones[15]);
+	free(one_size[15]);
+}
+
+bool is_compatible(uint16_t *first, uint16_t *second, uint8_t size)
+{
+	uint16_t val;
+	val = *first ^ *second;
+	if(is_pow_of_2(val))
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+bool is_pow_of_2(uint16_t val)
+{
+	uint16_t mask = 1;
+	bool flag = 0;
+	for(int i=0;i<=16;i++)
+	{
+		if(mask == val)
+		{
+			flag = 1;
+		}
+		mask = mask << 1;
+	}
+	return flag;
+}
+
+
+
+
+
+
+
+
+
+
+

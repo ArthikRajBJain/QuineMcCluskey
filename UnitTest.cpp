@@ -6,6 +6,7 @@ using namespace std;
 
 int main()
 {
+	/*
 	uint8_t num;
 	uint16_t val, *ones;
 	char input[1000000];
@@ -24,4 +25,20 @@ int main()
 	}
 	cout<<"\n";
 	free(ones);
+	*/
+	
+	
+	uint16_t val;
+	cout<<"Enter a value : ";
+	cin>>val;
+	bool output;
+	output = is_pow_of_2(val);
+	if(output)
+	{
+		cout<<"Yes, is power of 2\n";
+	}
+	else
+	{
+		cout<<"No, is not power of 2\n";
+	}
 }
