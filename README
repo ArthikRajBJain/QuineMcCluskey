@@ -1,0 +1,4 @@
+QUINE MCCLUSKEY
+
+This is the C++ implementation of the QM method also known as TAbular method
+for simplification of boolean expressions upto 15 variables.
