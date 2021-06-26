@@ -1,0 +1,2 @@
+GITLAB : git push -u "https://gitlab.com/ArthikRajBjain/quinemccluskey.git master
+GITHUB : git push -u "https://github.com/ArthikRajBJain/QuineMcCluskey.git" master
