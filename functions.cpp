@@ -72,6 +72,7 @@ void compute_tabulation(uint16_t *ones[], uint16_t *one_size[], uint16_t *not_do
 	int i=0,j=0,k=0,l=0;
 	for(i=1;i<16;i++)
 	{
+		cout<<"\n====================================================\n";
 		cout<<"Allocated ones["<<i<<"] and one_size["<<i<<"]\n";
 		ones[i] = (uint16_t *)malloc(65536*16*sizeof(uint16_t));
 		one_size[i] = (uint16_t *)malloc(16*sizeof(uint16_t));
@@ -79,22 +80,26 @@ void compute_tabulation(uint16_t *ones[], uint16_t *one_size[], uint16_t *not_do
 		{
 			*(one_size[i] + i1) = 0;
 		}
-		for(j=0;j<(15-i);j++)
+		for(j=0;j<(16-i);j++)
 		{
 			for(k=0;k<*(one_size[i-1]+j);k++)
 			{
 				for(l=0;l<*(one_size[i-1]+j+1);l++)
 				{
-					if(is_compatible(*(ones[i-1] + (16-i)*j + k), *(ones[i-1] + (16-i)*(j+1) + l*i), i))
+					if(is_compatible((ones[i-1] + (17-i)*j + k), (ones[i-1] + (17-i)*(j+1) + l*i), i))
 					{
-						
+						print_status((ones[i-1] + (17-i)*j + k), (ones[i-1] + (17-i)*(j+1) + l*i), i);
+						save_in_memory((ones[i-1] + (17-i)*j + k), (ones[i-1] + (17-i)*(j+1) + l*i), (ones[i] + (16-i)*j + *(one_size[i] + j)), i);
+						*(one_size[i] + j) = *(one_size[i] + j) + i*2;
 					}
 				}
 			}
+			cout<<"\n----------------------------------------------------\n";
 		}
 		free(ones[i-1]);
 		free(one_size[i-1]);
 		cout<<"Freed ones["<<i-1<<"] and one_size["<<i-1<<"]\n";
+		cout<<"\n====================================================\n";
 	}
 	free(ones[15]);
 	free(one_size[15]);
@@ -134,6 +139,29 @@ bool is_pow_of_2(uint16_t val)
 		mask = mask << 1;
 	}
 	return flag;
+}
+
+void save_in_memory(uint16_t *first, uint16_t *second, uint16_t *destination, uint8_t size)
+{
+	int i;
+	for(i=0;i<size;i++)
+	{
+		*(destination + i) = *(first + i);
+		*(destination + size +i) = *(second + i);
+	}
+}
+
+void print_status(uint16_t *first, uint16_t *second, uint8_t size)
+{
+	for(int i=0;i<size;i++)
+	{
+		cout<<*(first + i)<<" ";
+	}
+	for(int i=0;i<size;i++)
+	{
+		cout<<*(second + i)<<" ";
+	}
+	cout<<"\n";
 }
 
 

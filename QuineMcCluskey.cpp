@@ -43,8 +43,6 @@ int main()
 	//Printing based on number of ones
 	print_number_of_ones(ones[0], one_size[0]);
 	
-
-
-	free(one_size[0]);
-	free(ones[0]);
+	//Computing Tabulation
+	compute_tabulation(ones, one_size, not_done, not_done_size, done);
 }
