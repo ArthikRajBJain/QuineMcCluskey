@@ -25,7 +25,8 @@ int main()
 
 	//Allocating size for array to store the size of 1D array of number of ones
 	one_size[0] = (uint16_t *)malloc(16*sizeof(uint16_t));
-
+	cout<<"Allocated ones[0] and one_size[0]\n";
+	
 	//Converting input string to uint16_t array
 	in_size = dataConversion(in_array,input);
 	free(input);

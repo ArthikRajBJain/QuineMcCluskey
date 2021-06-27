@@ -72,21 +72,33 @@ void compute_tabulation(uint16_t *ones[], uint16_t *one_size[], uint16_t *not_do
 	int i=0,j=0,k=0,l=0;
 	for(i=1;i<16;i++)
 	{
+		cout<<"Allocated ones["<<i<<"] and one_size["<<i<<"]\n";
 		ones[i] = (uint16_t *)malloc(65536*16*sizeof(uint16_t));
 		one_size[i] = (uint16_t *)malloc(16*sizeof(uint16_t));
-		for(l=0;l<16;l++)
+		for(int i1=0;i1<16;i1++)
 		{
-			*(one_size[i] + l) = 0;
+			*(one_size[i] + i1) = 0;
 		}
-		for(j=0;j<(16-i);j++)
+		for(j=0;j<(15-i);j++)
 		{
-			*(ones[i-1] + (16-i)*j + *(one_size[i-1] + k));
+			for(k=0;k<*(one_size[i-1]+j);k++)
+			{
+				for(l=0;l<*(one_size[i-1]+j+1);l++)
+				{
+					if(is_compatible(*(ones[i-1] + (16-i)*j + k), *(ones[i-1] + (16-i)*(j+1) + l*i), i))
+					{
+						
+					}
+				}
+			}
 		}
 		free(ones[i-1]);
 		free(one_size[i-1]);
+		cout<<"Freed ones["<<i-1<<"] and one_size["<<i-1<<"]\n";
 	}
 	free(ones[15]);
 	free(one_size[15]);
+	cout<<"Freed ones[15] and one_size[15]\n";
 }
 
 bool is_compatible(uint16_t *first, uint16_t *second, uint8_t size)
