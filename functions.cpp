@@ -108,15 +108,18 @@ void compute_tabulation(uint16_t *ones[], uint16_t *one_size[], uint16_t *not_do
 
 bool is_compatible(uint16_t *first, uint16_t *second, uint8_t size)
 {
-	uint16_t val, or1 = 0, or2 = 0;
+	uint16_t orr, xorr, or1 = 0, or2 = 0, xor1 = 0, xor2 = 0;
 	int i;
 	for(i=0;i<size;i++)
 	{
 		or1 = or1 | *(first + i);
 		or2 = or2 | *(second + i);
+		xor1 = xor1 ^ *(first + i);
+		xor2 = xor2 ^ *(second + i);
 	}
-	val = or1 ^ or2;
-	if(is_pow_of_2(val))
+	orr = or1 ^ or2;
+	xorr = xor1 ^ xor2;
+	if(is_pow_of_2(orr) && is_pow_of_2(xorr))
 	{
 		return 1;
 	}
