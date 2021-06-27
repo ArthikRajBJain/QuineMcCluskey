@@ -27,7 +27,7 @@ int main()
 	free(ones);
 	*/
 	
-	/*
+	
 	uint16_t val;
 	cout<<"Enter a value : ";
 	cin>>val;
@@ -41,7 +41,7 @@ int main()
 	{
 		cout<<"No, is not power of 2\n";
 	}
-	*/
+	
 	
 	/*
 	cout<<"Enter the size : ";
@@ -72,10 +72,12 @@ int main()
 	free(second);
 	*/
 
+	/*
 	cout<<"Enter the value to find power of 2 : ";
 	int val;
 	cin>>val;
 	cout<<"2 power "<<val<<" is equal to "<<pow_2(val)<<"\n";
+	*/
 }
 
 

@@ -118,6 +118,10 @@ bool is_compatible(uint16_t *first, uint16_t *second, uint8_t size)
 		xor2 = xor2 ^ *(second + i);
 	}
 	orr = or1 ^ or2;
+	if((xor1 == 0) && (xor2 == 0))
+	{
+		return 0;
+	}
 	xorr = xor1 ^ xor2;
 	if(is_pow_of_2(orr) && is_pow_of_2(xorr))
 	{
@@ -131,6 +135,7 @@ bool is_compatible(uint16_t *first, uint16_t *second, uint8_t size)
 
 bool is_pow_of_2(uint16_t val)
 {
+	//Returns true even if the val is ZERO
 	uint16_t mask = 1;
 	bool flag = 0;
 	for(int i=0;i<=16;i++)
