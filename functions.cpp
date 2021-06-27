@@ -82,15 +82,15 @@ void compute_tabulation(uint16_t *ones[], uint16_t *one_size[], uint16_t *not_do
 		}
 		for(j=0;j<(16-i);j++)
 		{
-			for(k=0;k<*(one_size[i-1]+j);k++)
+			for(k=0;k<(*(one_size[i-1]+j)/pow_2(i-1));k++)
 			{
-				for(l=0;l<*(one_size[i-1]+j+1);l++)
+				for(l=0;l<(*(one_size[i-1]+j+1)/pow_2(i-1));l++)
 				{
-					if(is_compatible((ones[i-1] + (17-i)*j + k), (ones[i-1] + (17-i)*(j+1) + l*i), i))
+					if(is_compatible((ones[i-1] + (17-i)*j + k*pow_2(i-1)), (ones[i-1] + (17-i)*(j+1) + l*pow_2(i-1)), pow_2(i-1)))
 					{
-						print_status((ones[i-1] + (17-i)*j + k), (ones[i-1] + (17-i)*(j+1) + l*i), i);
-						save_in_memory((ones[i-1] + (17-i)*j + k), (ones[i-1] + (17-i)*(j+1) + l*i), (ones[i] + (16-i)*j + *(one_size[i] + j)), i);
-						*(one_size[i] + j) = *(one_size[i] + j) + i*2;
+						print_status((ones[i-1] + (17-i)*j + k*pow_2(i-1)), (ones[i-1] + (17-i)*(j+1) + l*pow_2(i-1)), pow_2(i-1));
+						save_in_memory((ones[i-1] + (17-i)*j + k*pow_2(i-1)), (ones[i-1] + (17-i)*(j+1) + l*pow_2(i-1)), (ones[i] + (16-i)*j + *(one_size[i] + j)), pow_2(i-1));
+						*(one_size[i] + j) = *(one_size[i] + j) + 2*pow_2(i-1);
 					}
 				}
 			}
@@ -167,6 +167,19 @@ void print_status(uint16_t *first, uint16_t *second, uint8_t size)
 	cout<<"\n";
 }
 
+int pow_2(int i)
+{
+	int out=1;
+	if(i == 0)
+	{
+		return out;
+	}
+	for(;i>0;i--)
+	{
+		out *= 2;
+	}
+	return out;
+}
 
 
 

@@ -43,6 +43,7 @@ int main()
 	}
 	*/
 	
+	/*
 	cout<<"Enter the size : ";
 	int size;
 	uint16_t *first, *second;
@@ -69,6 +70,12 @@ int main()
 	}
 	free(first);
 	free(second);
+	*/
+
+	cout<<"Enter the value to find power of 2 : ";
+	int val;
+	cin>>val;
+	cout<<"2 power "<<val<<" is equal to "<<pow_2(val)<<"\n";
 }
 
 
