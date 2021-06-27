@@ -91,8 +91,14 @@ void compute_tabulation(uint16_t *ones[], uint16_t *one_size[], uint16_t *not_do
 
 bool is_compatible(uint16_t *first, uint16_t *second, uint8_t size)
 {
-	uint16_t val;
-	val = *first ^ *second;
+	uint16_t val, or1 = 0, or2 = 0;
+	int i;
+	for(i=0;i<size;i++)
+	{
+		or1 = or1 | *(first + i);
+		or2 = or2 | *(second + i);
+	}
+	val = or1 ^ or2;
 	if(is_pow_of_2(val))
 	{
 		return 1;
@@ -117,6 +123,12 @@ bool is_pow_of_2(uint16_t val)
 	}
 	return flag;
 }
+
+
+
+
+
+
 
 
 
