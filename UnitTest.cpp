@@ -27,7 +27,7 @@ int main()
 	free(ones);
 	*/
 	
-	
+	/*
 	uint16_t val;
 	cout<<"Enter a value : ";
 	cin>>val;
@@ -41,7 +41,7 @@ int main()
 	{
 		cout<<"No, is not power of 2\n";
 	}
-	
+	*/
 	
 	/*
 	cout<<"Enter the size : ";
@@ -78,6 +78,28 @@ int main()
 	cin>>val;
 	cout<<"2 power "<<val<<" is equal to "<<pow_2(val)<<"\n";
 	*/
+
+	cout<<"Enter the size : ";
+	int size;
+	cin>>size;
+	uint16_t *first, *second;
+	first = (uint16_t *)malloc(1000*sizeof(uint16_t));
+	second = (uint16_t *)malloc(1000*sizeof(uint16_t));
+	cout<<"Enter set one numbers : ";
+	for(int i=0;i<size;i++)
+	{
+		cin>>*(first + i);
+	}
+	cout<<"Enter set two numbers : ";
+	for(int i=0;i<size;i++)
+	{
+		cin>>*(second + i);
+	}
+	sort_in_order(first, second, size);
+	cout<<"The Sorted First and second is : ";
+	print_status(first, second, size);
+	free(first);
+	free(second);
 }
 
 

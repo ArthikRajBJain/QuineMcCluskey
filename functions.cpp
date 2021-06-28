@@ -71,6 +71,7 @@ void compute_tabulation(uint16_t *ones[], uint16_t *one_size[], uint16_t *not_do
 {
 	int i=0,j=0,k=0,l=0;
 	uint32_t div, div2, po2;
+	uint16_t *first, *second;
 	for(i=1;i<16;i++)
 	{
 		cout<<"\n====================================================\n";
@@ -92,10 +93,16 @@ void compute_tabulation(uint16_t *ones[], uint16_t *one_size[], uint16_t *not_do
 				{
 					if(is_compatible((ones[i-1] + div*j + k*po2), (ones[i-1] + div*(j+1) + l*po2), po2))
 					{
-						//sort_in_order((ones[i-1] + div*j + k*po2), (ones[i-1] + div*(j+1) + l*po2), po2);
-						print_status((ones[i-1] + div*j + k*po2), (ones[i-1] + div*(j+1) + l*po2), po2);
-						save_in_memory((ones[i-1] + div*j + k*po2), (ones[i-1] + div*(j+1) + l*po2), (ones[i] + div2*j + *(one_size[i] + j)), po2);
+						first = (uint16_t *)malloc(po2*sizeof(uint16_t));
+						copy_mem((ones[i-1] + div*j + k*po2), first, po2);
+						second = (uint16_t *)malloc(po2*sizeof(uint16_t));
+						copy_mem((ones[i-1] + div*(j+1) + l*po2), second, po2);
+						sort_in_order(first, second, po2);
+						print_status(first, second, po2);
+						save_in_memory(first, second, (ones[i] + div2*j + *(one_size[i] + j)), po2);
 						*(one_size[i] + j) = *(one_size[i] + j) + 2*po2;
+						free(first);
+						free(second);
 					}
 				}
 			}
@@ -216,10 +223,10 @@ void swap(uint16_t *xp, uint16_t *yp)
 void selectionSort(uint16_t arr[], uint8_t n)
 {
     int i, j, min_idx;
-    for (i = 0; i < n - 1; i++)
+    for (i=0;i<(n-1);i++)
     {
         min_idx = i;
-        for (j = i + 1; j < n; j++)
+        for (j=(i+1);j<n;j++)
         {
             if (arr[j] > arr[min_idx])
             {
@@ -230,6 +237,13 @@ void selectionSort(uint16_t arr[], uint8_t n)
     }
 }
 
+void copy_mem(uint16_t *source, uint16_t *destination, uint8_t size)
+{
+	for(int i=0;i<size;i++)
+	{
+		*(destination + i) = *(source + i);
+	}
+}
 
 
 
