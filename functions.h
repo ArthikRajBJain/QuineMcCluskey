@@ -12,3 +12,6 @@ bool is_pow_of_2(uint16_t);
 void save_in_memory(uint16_t *, uint16_t *, uint16_t *, uint8_t);
 void print_status(uint16_t *, uint16_t *, uint8_t);
 int pow_2(int);
+void sort_in_order(uint16_t *, uint16_t *, uint8_t);
+void swap(uint16_t *, uint16_t *);
+void selectionSort(uint16_t [], uint8_t);
