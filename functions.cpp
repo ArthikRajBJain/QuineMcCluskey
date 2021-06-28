@@ -46,7 +46,7 @@ void split_ones(uint16_t *in_array, uint16_t in_size, uint16_t *ones, uint16_t *
 	}
 	for(int i=0;i<=in_size;i++)
 	{
-		*(ones + 16*number_of_ones(*(in_array + i)) + *(one_size + number_of_ones(*(in_array + i)))) = *(in_array + i);
+		*(ones + (65536)*number_of_ones(*(in_array + i)) + *(one_size + number_of_ones(*(in_array + i)))) = *(in_array + i);
 		*(one_size + number_of_ones(*(in_array + i))) += 1;
 	}
 }
@@ -61,7 +61,7 @@ void print_number_of_ones(uint16_t *ones, uint16_t *one_size)
 		cout<<i<<"\t";
 		for(int j=0;j<*(one_size + i);j++)
 		{
-			cout<<*(ones + 16*i +j)<<"  ";
+			cout<<*(ones + (65536)*i +j)<<"  ";
 		}
 		cout<<"\n----------------------------------------------------\n";
 	}
@@ -70,27 +70,31 @@ void print_number_of_ones(uint16_t *ones, uint16_t *one_size)
 void compute_tabulation(uint16_t *ones[], uint16_t *one_size[], uint16_t *not_done, uint16_t *not_done_size, bool *done)
 {
 	int i=0,j=0,k=0,l=0;
+	uint32_t div, div2, po2;
 	for(i=1;i<16;i++)
 	{
 		cout<<"\n====================================================\n";
 		cout<<"Allocated ones["<<i<<"] and one_size["<<i<<"]\n";
 		ones[i] = (uint16_t *)malloc(65536*16*sizeof(uint16_t));
 		one_size[i] = (uint16_t *)malloc(16*sizeof(uint16_t));
+		div = 65536*16/(17-i);
+		div2 = 65536*16/(16-i);
+		po2 = pow_2(i-1);
 		for(int i1=0;i1<16;i1++)
 		{
 			*(one_size[i] + i1) = 0;
 		}
 		for(j=0;j<(16-i);j++)
 		{
-			for(k=0;k<(*(one_size[i-1]+j)/pow_2(i-1));k++)
+			for(k=0;k<(*(one_size[i-1]+j)/po2);k++)
 			{
-				for(l=0;l<(*(one_size[i-1]+j+1)/pow_2(i-1));l++)
+				for(l=0;l<(*(one_size[i-1]+j+1)/po2);l++)
 				{
-					if(is_compatible((ones[i-1] + (17-i)*j + k*pow_2(i-1)), (ones[i-1] + (17-i)*(j+1) + l*pow_2(i-1)), pow_2(i-1)))
+					if(is_compatible((ones[i-1] + div*j + k*po2), (ones[i-1] + div*(j+1) + l*po2), po2))
 					{
-						print_status((ones[i-1] + (17-i)*j + k*pow_2(i-1)), (ones[i-1] + (17-i)*(j+1) + l*pow_2(i-1)), pow_2(i-1));
-						save_in_memory((ones[i-1] + (17-i)*j + k*pow_2(i-1)), (ones[i-1] + (17-i)*(j+1) + l*pow_2(i-1)), (ones[i] + (16-i)*j + *(one_size[i] + j)), pow_2(i-1));
-						*(one_size[i] + j) = *(one_size[i] + j) + 2*pow_2(i-1);
+						print_status((ones[i-1] + div*j + k*po2), (ones[i-1] + div*(j+1) + l*po2), po2);
+						save_in_memory((ones[i-1] + div*j + k*po2), (ones[i-1] + div*(j+1) + l*po2), (ones[i] + div2*j + *(one_size[i] + j)), po2);
+						*(one_size[i] + j) = *(one_size[i] + j) + 2*po2;
 					}
 				}
 			}
