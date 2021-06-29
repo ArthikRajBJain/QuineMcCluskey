@@ -16,3 +16,5 @@ void sort_in_order(uint16_t *, uint16_t *, uint8_t);
 void swap(uint16_t *, uint16_t *);
 void selectionSort(uint16_t [], uint8_t);
 void copy_mem(uint16_t *, uint16_t *, uint8_t);
+bool is_already_there(uint16_t *, uint16_t *, uint16_t, uint8_t);
+bool is_sme(uint16_t *, uint16_t *, uint8_t);

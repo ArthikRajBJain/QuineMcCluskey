@@ -78,7 +78,8 @@ int main()
 	cin>>val;
 	cout<<"2 power "<<val<<" is equal to "<<pow_2(val)<<"\n";
 	*/
-
+	
+	/*
 	cout<<"Enter the size : ";
 	int size;
 	cin>>size;
@@ -98,6 +99,37 @@ int main()
 	sort_in_order(first, second, size);
 	cout<<"The Sorted First and second is : ";
 	print_status(first, second, size);
+	free(first);
+	free(second);
+	*/
+	
+	cout<<"Enter the one_size : ";
+	int one_size;
+	cin>>one_size;
+	cout<<"Enter the size : ";
+	int size;
+	cin>>size;
+	uint16_t *first, *second;
+	first = (uint16_t *)malloc(1000*sizeof(uint16_t));
+	second = (uint16_t *)malloc(100*sizeof(uint16_t));
+	cout<<"Enter ones numbers : \n";
+	for(int i=0;i<one_size;i++)
+	{
+		cin>>*(first + i);
+	}
+	cout<<"Enter comparision numbers : \n";
+	for(int i=0;i<size;i++)
+	{
+		cin>>*(second + i);
+	}
+	if(is_already_there(first, second, one_size, size))
+	{
+		cout<<"The set is already there\n";
+	}
+	else
+	{
+		cout<<"The set is new and has not been seen before\n";
+	}
 	free(first);
 	free(second);
 }

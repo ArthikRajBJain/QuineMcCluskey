@@ -71,7 +71,7 @@ void compute_tabulation(uint16_t *ones[], uint16_t *one_size[], uint16_t *not_do
 {
 	int i=0,j=0,k=0,l=0;
 	uint32_t div, div2, po2;
-	uint16_t *first, *second;
+	uint16_t *first, *second, *temp;
 	for(i=1;i<16;i++)
 	{
 		cout<<"\n====================================================\n";
@@ -90,7 +90,7 @@ void compute_tabulation(uint16_t *ones[], uint16_t *one_size[], uint16_t *not_do
 			for(k=0;k<(*(one_size[i-1]+j)/po2);k++)
 			{
 				for(l=0;l<(*(one_size[i-1]+j+1)/po2);l++)
-				{
+				{ 
 					if(is_compatible((ones[i-1] + div*j + k*po2), (ones[i-1] + div*(j+1) + l*po2), po2))
 					{
 						first = (uint16_t *)malloc(po2*sizeof(uint16_t));
@@ -98,11 +98,23 @@ void compute_tabulation(uint16_t *ones[], uint16_t *one_size[], uint16_t *not_do
 						second = (uint16_t *)malloc(po2*sizeof(uint16_t));
 						copy_mem((ones[i-1] + div*(j+1) + l*po2), second, po2);
 						sort_in_order(first, second, po2);
+						temp = (uint16_t *)malloc(po2*2*sizeof(uint16_t));
+						save_in_memory(first, second, temp, po2);
+						//
+						cout<<"Checking for ";
+						//
 						print_status(first, second, po2);
-						save_in_memory(first, second, (ones[i] + div2*j + *(one_size[i] + j)), po2);
-						*(one_size[i] + j) = *(one_size[i] + j) + 2*po2;
+						if(!is_already_there((ones[i] + div2*j), temp, *(one_size[i] + j), po2))
+						{
+							//
+							cout<<"Val : ";
+							print_status(first, second, po2);
+							save_in_memory(first, second, (ones[i] + div2*j + *(one_size[i] + j)), po2);
+							*(one_size[i] + j) = *(one_size[i] + j) + 2*po2;
+						}
 						free(first);
 						free(second);
+						free(temp);
 					}
 				}
 			}
@@ -243,6 +255,38 @@ void copy_mem(uint16_t *source, uint16_t *destination, uint8_t size)
 	{
 		*(destination + i) = *(source + i);
 	}
+}
+
+bool is_already_there(uint16_t *start, uint16_t *value, uint16_t one_size, uint8_t size)
+{
+	bool flag = 0;
+	if(one_size == 0)
+	{
+		return flag;
+	}
+	for(int i=0;i<(one_size/size);i++)
+	{
+		//
+		print_status((start + i*size), value, size);
+		if(is_sme((start + i*size), value, size))
+		{
+			flag = 1;
+		}
+	}
+	return flag;
+}
+
+bool is_sme(uint16_t *first, uint16_t *second, uint8_t size)
+{
+	bool flag = 1;
+	for(int i=0;i<size;i++)
+	{
+		if(*(first + i) != *(second + i))
+		{
+			flag = 0;
+		}
+	}
+	return flag;
 }
 
 
