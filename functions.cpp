@@ -103,6 +103,7 @@ void compute_tabulation(uint16_t *ones[], uint16_t *one_size[], uint16_t *not_do
 						if(!is_already_there((ones[i] + div2*j), temp, *(one_size[i] + j), 2*po2))
 						{
 							print_status(first, second, po2);
+							print_pairing(first, second, po2);
 							save_in_memory(first, second, (ones[i] + div2*j + *(one_size[i] + j)), po2);
 							*(one_size[i] + j) = *(one_size[i] + j) + 2*po2;
 						}
@@ -179,15 +180,16 @@ void save_in_memory(uint16_t *first, uint16_t *second, uint16_t *destination, ui
 
 void print_status(uint16_t *first, uint16_t *second, uint8_t size)
 {
-	for(int i=0;i<size;i++)
+	int i;
+	for(i=0;i<size;i++)
 	{
 		cout<<*(first + i)<<" ";
 	}
-	for(int i=0;i<size;i++)
+	for(i=0;i<size;i++)
 	{
 		cout<<*(second + i)<<" ";
 	}
-	cout<<"\n";
+	cout<<"\t";
 }
 
 int pow_2(int i)
@@ -281,7 +283,59 @@ bool is_sme(uint16_t *first, uint16_t *second, uint8_t size)
 	return flag;
 }
 
-
+void print_pairing(uint16_t *first, uint16_t *second, uint8_t size)
+{
+	int i;
+	int w_size = 4;
+	uint16_t xorr, orr;
+	uint16_t mask = 1;
+	bool *pair, *orb;
+	pair = (bool *)malloc(16*sizeof(bool));
+	orb = (bool *)malloc(16*sizeof(bool));
+	xorr = *(first) ^ *(second + size - 1);
+	orr = *(first) | *(second + size - 1);
+	for(i=0;i<w_size;i++)
+	{
+		if(mask & xorr)
+		{
+			*(pair + i) = 1;
+		}
+		else
+		{
+			*(pair + i) = 0;
+		}
+		if(mask & orr)
+		{
+			*(orb + i) = 1;
+		}
+		else
+		{
+			*(orb + i) = 0;
+		}
+		mask = mask << 1;
+	}
+	for(i=(w_size-1);i>=0;i--)
+	{
+		if(*(pair + i))
+		{
+			cout<<"-";
+		}
+		else
+		{
+			if(*(orb + i))
+			{
+				cout<<"1";
+			}
+			else
+			{
+				cout<<"0";
+			}
+		}
+	}
+	cout<<"\n";
+	free(pair);
+	free(orb);
+}
 
 
 

@@ -18,3 +18,4 @@ void selectionSort(uint16_t [], uint8_t);
 void copy_mem(uint16_t *, uint16_t *, uint8_t);
 bool is_already_there(uint16_t *, uint16_t *, uint16_t, uint8_t);
 bool is_sme(uint16_t *, uint16_t *, uint8_t);
+void print_pairing(uint16_t *, uint16_t *, uint8_t);
