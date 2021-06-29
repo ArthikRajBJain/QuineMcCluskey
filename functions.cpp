@@ -100,14 +100,8 @@ void compute_tabulation(uint16_t *ones[], uint16_t *one_size[], uint16_t *not_do
 						sort_in_order(first, second, po2);
 						temp = (uint16_t *)malloc(po2*2*sizeof(uint16_t));
 						save_in_memory(first, second, temp, po2);
-						//
-						cout<<"Checking for ";
-						//
-						print_status(first, second, po2);
-						if(!is_already_there((ones[i] + div2*j), temp, *(one_size[i] + j), po2))
+						if(!is_already_there((ones[i] + div2*j), temp, *(one_size[i] + j), 2*po2))
 						{
-							//
-							cout<<"Val : ";
 							print_status(first, second, po2);
 							save_in_memory(first, second, (ones[i] + div2*j + *(one_size[i] + j)), po2);
 							*(one_size[i] + j) = *(one_size[i] + j) + 2*po2;
@@ -266,8 +260,6 @@ bool is_already_there(uint16_t *start, uint16_t *value, uint16_t one_size, uint8
 	}
 	for(int i=0;i<(one_size/size);i++)
 	{
-		//
-		print_status((start + i*size), value, size);
 		if(is_sme((start + i*size), value, size))
 		{
 			flag = 1;
