@@ -7,6 +7,7 @@ using namespace std;
 int main()
 { 
 	char *input;
+	uint8_t w_size;
 	uint16_t  *in_array, in_size;
 	uint16_t *ones[16], *one_size[16];
 	uint16_t *not_done, *not_done_size;
@@ -36,6 +37,9 @@ int main()
 		cout<<*(in_array + i)<<"  ";
 	}
 	
+	//Computing Word Size
+	w_size = cal_w_size(in_array, in_size);
+
 	//Splitting based on number of ones
     split_ones(in_array, in_size, ones[0], one_size[0]);
 	free(in_array);
@@ -44,5 +48,5 @@ int main()
 	print_number_of_ones(ones[0], one_size[0]);
 	
 	//Computing Tabulation
-	compute_tabulation(ones, one_size, not_done, not_done_size, done);
+	compute_tabulation(ones, one_size, not_done, not_done_size, done, w_size);
 }

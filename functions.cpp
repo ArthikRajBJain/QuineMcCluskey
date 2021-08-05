@@ -67,7 +67,7 @@ void print_number_of_ones(uint16_t *ones, uint16_t *one_size)
 	}
 }
 
-void compute_tabulation(uint16_t *ones[], uint16_t *one_size[], uint16_t *not_done, uint16_t *not_done_size, bool *done)
+void compute_tabulation(uint16_t *ones[], uint16_t *one_size[], uint16_t *not_done, uint16_t *not_done_size, bool *done, int w_size)
 {
 	int i=0,j=0,k=0,l=0;
 	uint32_t div, div2, po2;
@@ -103,7 +103,7 @@ void compute_tabulation(uint16_t *ones[], uint16_t *one_size[], uint16_t *not_do
 						if(!is_already_there((ones[i] + div2*j), temp, *(one_size[i] + j), 2*po2))
 						{
 							print_status(first, second, po2);
-							print_pairing(first, second, po2);
+							print_pairing(first, second, po2, w_size);
 							save_in_memory(first, second, (ones[i] + div2*j + *(one_size[i] + j)), po2);
 							*(one_size[i] + j) = *(one_size[i] + j) + 2*po2;
 						}
@@ -283,10 +283,9 @@ bool is_sme(uint16_t *first, uint16_t *second, uint8_t size)
 	return flag;
 }
 
-void print_pairing(uint16_t *first, uint16_t *second, uint8_t size)
+void print_pairing(uint16_t *first, uint16_t *second, uint8_t size, int w_size)
 {
 	int i;
-	int w_size = 4;
 	uint16_t xorr, orr;
 	uint16_t mask = 1;
 	bool *pair, *orb;
@@ -294,6 +293,7 @@ void print_pairing(uint16_t *first, uint16_t *second, uint8_t size)
 	orb = (bool *)malloc(16*sizeof(bool));
 	xorr = *(first) ^ *(second + size - 1);
 	orr = *(first) | *(second + size - 1);
+	//w_size = 4;
 	for(i=0;i<w_size;i++)
 	{
 		if(mask & xorr)
@@ -335,6 +335,31 @@ void print_pairing(uint16_t *first, uint16_t *second, uint8_t size)
 	cout<<"\n";
 	free(pair);
 	free(orb);
+}
+
+int cal_w_size(uint16_t *array, uint16_t size)
+{
+	uint16_t max = *array;
+	for(int i=1;i<=size;i++)
+	{
+		if(*(array + i) > max)
+		{
+			max = *(array + i);
+		}
+	}
+	int byte = 0;
+	int flag = 0;
+	for(int i=0;i<9;i++)
+	{
+		if(max < pow_2(i) && flag == 0)
+		{
+			byte = i;
+			flag = 1;
+		}
+	}
+	cout<<"\nMax "<<max<<"\n";
+	cout<<"The Word size is "<<byte<<"\n";
+	return byte;
 }
 
 
